@@ -3,6 +3,7 @@ from transformers import pipeline
 import numpy as np
 import io
 import wave
+import PyPDF2
 
 st.title("📄 Text to Audio App")
 
@@ -24,16 +25,16 @@ if st.button("Convert to Audio"):
             audio = speech["audio"]
             rate = speech["sampling_rate"]
 
-            # 🔥 Ensure numpy array
+            #  Ensure numpy array
             audio = np.array(audio)
 
-            # 🔥 Normalize safely
+            #  Normalize safely
             audio = audio / np.max(np.abs(audio))
 
-            # 🔥 Convert to int16
+            # Convert to int16
             audio = (audio * 32767).astype(np.int16)
 
-            # 🔥 Write proper WAV using wave module
+            # Write proper WAV using wave module
             buffer = io.BytesIO()
             with wave.open(buffer, "wb") as wf:
                 wf.setnchannels(1)
@@ -47,10 +48,10 @@ if st.button("Convert to Audio"):
             # Debug
             st.write("Audio length:", len(audio_bytes))
 
-            # ✅ Play
+            # Play
             st.audio(audio_bytes, format="audio/wav")
 
-            # ✅ Download
+            # Download
             st.download_button(
                 "Download Audio",
                 audio_bytes,
