@@ -4,4 +4,4 @@ torch==2.2.2
 torchaudio==2.2.2
 scipy
 soundfile
-numpy
+numpy==1.26.4
