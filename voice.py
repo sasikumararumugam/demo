@@ -34,21 +34,21 @@ if st.button("Convert to Audio"):
             wav_bytes = io.BytesIO()
             wavfile.write(wav_bytes, rate=rate, data=audio)
 
-            # 🔥 VERY IMPORTANT FIX
             wav_bytes.seek(0)
 
+            # ✅ FIX: use getvalue()
+            audio_bytes = wav_bytes.getvalue()
+
             # Play audio
-            st.audio(wav_bytes, format="audio/wav")
+            st.audio(audio_bytes, format="audio/wav")
 
             # Download
             st.download_button(
                 label="Download Audio",
-                data=wav_bytes,
+                data=audio_bytes,
                 file_name="output.wav",
                 mime="audio/wav"
             )
 
         except Exception as e:
             st.error(str(e))
-
-            #comment
